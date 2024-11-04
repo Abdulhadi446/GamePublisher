@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamePublisher.io</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .game-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .game-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            width: 30%;
+            margin: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .game-item img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .game-item h3 {
+            color: #333;
+        }
+        .game-item a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .game-item a:hover {
+            background-color: #0056b3;
+        }
+        .upload-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"], input[type="submit"] {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        header nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header nav a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to My Game Distribution Platform</h1>
+        <p> </p>
+        <p> </p>
+        <nav>
+        <a href="/">Home</a>
+        <a href="/upload">Upload Game</a>
+        <a href="/games">Browse Games</a>
+    </nav>
+    </header>
+    
+    <div class="container">
+        <h2>Featured Games</h2>
+        <div class="game-gallery">
+            <div class="game-item">
+                <img src="https://i.imghippo.com/files/e3gbe1728656391.jpg" alt="Game 1">
+                <h3>MultiplayerShooter</h3>
+                <a href="https://shorturl.at/3CQ4b" download>Download Game</a>
+            </div>
+            <div class="game-item">
+                <img src="https://i.imghippo.com/files/AGLhX1728655810.jpg"alt="Game 2">
+                <h3>FlappyBird</h3>
+                <a href="https://shorturl.at/SHDpM" download>Download Game</a>
+            </div>
+            <div class="game-item">
+                <img src="https://i.imghippo.com/files/uJIaY1728656487.jpg" alt="Game 3">
+                <h3>TicTac</h3>
+                <a href="https://shorturl.at/KDNLo" download>Download Game</a>
+            </div>
+
+        </div>
+
+        <div class="upload-form">
+            <h2>Upload Your Game</h2>
+            <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="game-file" accept=".zip,.exe,.rar,.7z,.png,.jar,.jpeg">
+                <input type="submit" value="Upload Game">
+            </form>
+        </div>
+        
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Game Distribution Platform. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Client-side JavaScript to handle file uploads
+        document.getElementById('upload-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this); // Create FormData from the form
+
+            // Send the form data to the server using fetch
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text()) // Get response as text
+            .then(data => {
+                console.log('Upload success:', data); // Log success
+                alert('Game uploaded successfully!'); // Notify the user
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error); // Log errors
+                alert('Failed to upload the game file.');
+            });
+        });
+    </script>
+</body>
+</html>
