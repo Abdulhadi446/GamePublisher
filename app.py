@@ -4,6 +4,7 @@ import shutil
 import threading
 import webbrowser
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -31,8 +32,13 @@ else:
 
 @app.route('/')
 def index():
-    # Serve index.html from the current directory
-    return send_from_directory(os.getcwd(), 'index.html')
+    # Render the index.html from the templates folder
+    return render_template('index.html')
+
+@app.route('/installgames')
+def installgames():
+    # Render the installgames.html from the templates folder
+    return render_template('installgames.html')
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_game():
